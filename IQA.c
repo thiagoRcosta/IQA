@@ -3,15 +3,15 @@
 
 int main(void){
 	double IQA;
-	double CF, Q1;
-	double PH, Q2;
-	double DBO, Q3;
-	double NT, Q4;
-	double FT, Q5;
-	double TEMP, Q6;
-	double TURB, Q7;
-	double ST, Q8;
-	double OD, Q9;
+	double CF, Q1; // Coliformes Fecais
+	double PH, Q2; // pH
+	double DBO, Q3; // DBO
+	double NT, Q4; // Nitrogênio Total
+	double FT, Q5; // Fósforo Total
+	double TEMP, Q6; // Variação de Temperatura
+	double TURB, Q7; // Turbidez
+	double ST, Q8; // Sólidos Totais
+	double OD, Q9; // Oxigênio Dissolvido
 
 	printf("Por favor, digite o valor de Coliformes Fecais:\n");
 	scanf("%lf", &CF); // Coliformes Fecais
@@ -40,10 +40,11 @@ int main(void){
 	printf("Por favor, digite o valor do Oxigênio Dissolvido:\n");
 	scanf("%lf", &OD); // Oxigênio Dissolvido
 
+
 	if(CF > pow(10, 5)){
 		Q1 = 3.0;
 	} else{
-		Q1 = (98.03 - 36.45 * log10(CF) + 3.14 * pow(log10(CF), 2) + 0.067 * pow(log10(CF), 3));
+		Q1 = (98.03 - 36.45 * log10(CF) + 3.138 * pow(log10(CF), 2) + 0.06776 * pow(log10(CF), 3));
 	}
 
 	if(PH > 12){
@@ -69,10 +70,10 @@ int main(void){
 	if(FT > 10){
 		Q5 = 1.0;
 	} else{
-		Q5 = (213.7 * exp(-1.68 * (pow(FT, 0.3325))));
+		Q5 = (213.7 * exp(-1.680 * (pow(FT, 0.3325))));
 	}
 
-	if(TEMP <= -5){
+	if(TEMP <= 5){
 		Q6 = 1;
 	} else if(TEMP > 15){
 		Q6 = 9.0;
@@ -83,13 +84,13 @@ int main(void){
 	if(TURB > 100){
 		Q7 = 5.0;
 	} else{
-		Q7 = (97.34 * exp(-0.01139 * TURB - 0.04917 * pow(TURB, 0.5)));
+		Q7 = (97.34 * exp(-0.01139 * TURB - 0.04917 * sqrt(TURB)));
 	}
 
 	if(ST > 500){
 		Q8 = 32.0;
 	} else{
-		Q8 = (80.26 * exp(-0.00107 * ST + 0.03009 * pow(ST, 0.5)) - 0.1185 * ST);
+		Q8 = (80.26 * exp(-0.00107 * ST + 0.03009 * sqrt(ST)) - 0.1185 * ST);
 	}
 
 	if(OD == 140){
